@@ -5,32 +5,30 @@
 
   <servers>
     <server>
-      <id>${SNAP-REPO}</id>
-      <username>${NEXUS-USER}</username>
-      <password>${NEXUS-PASS}</password>
-    </server>
-    <server>
-      <id>${RELEASE-REPO}</id>
-      <username>${NEXUS-USER}</username>
-      <password>${NEXUS-PASS}</password>
-    </server>
-        <server>
-        <id>${CENTRAL-REPO}</id>
-      <username>${NEXUS-USER}</username>
-      <password>${NEXUS-PASS}</password>
-    </server>
-    <server>
-        <id>${NEXUS-GRP-REPO}</id>
-      <username>${NEXUS-USER}</username>
-      <password>${NEXUS-PASS}</password>
+      <id>vprofile-maven-central-store</id>
+      <username>aws</username>
+      <password>${env.CODEARTIFACT_AUTH_TOKEN}</password>
     </server>
   </servers>
-
+  <profiles>
+    <profile>
+      <id>vprofile-maven-central-store</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <repositories>
+        <repository>
+          <id>vprofile-maven-central-store</id>
+          <url>https://vprofile-367065853931.d.codeartifact.ap-south-1.amazonaws.com/maven/maven-central-store/</url>
+        </repository>
+      </repositories>
+    </profile>
+  </profiles>
   <mirrors>
     <mirror>
-      <id>${CENTRAL-REPO}</id>
-      <name>${CENTRAL-REPO}</name>
-      <url>http://${NEXUSIP}:${NEXUSPORT}/repository/${NEXUS-GRP-REPO}/</url>
+      <id>vprofile-maven-central-store</id>
+      <name>vprofile-maven-central-store</name>
+      <url>https://vprofile-367065853931.d.codeartifact.ap-south-1.amazonaws.com/maven/maven-central-store/</url>
       <mirrorOf>*</mirrorOf>
     </mirror>
   </mirrors>
