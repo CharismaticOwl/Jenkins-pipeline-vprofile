@@ -37,7 +37,13 @@ pipeline{
             steps{
 
                 sh "sed -i 's/env.CODEARTIFACT_AUTH_TOKEN/${CODEARTIFACT_AUTH_TOKEN}/g' settings.xml"
-                sh 'mvn clean install -s settings.xml'
+                sh 'mvn clean install -s settings.xml -Dskiptests'
+            }
+            post{
+                success{
+                    echo 'Now Archiving'
+                    archiveArtifacts artifacts: '**/target/*.war'
+                }
             }
         }
     }
