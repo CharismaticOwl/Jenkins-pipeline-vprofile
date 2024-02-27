@@ -33,6 +33,17 @@ pipeline{
             }
         }
 
+        stage('Code analysis with Checkstyle'){
+            steps{
+                sh 'mvn checkstyle:checkstyle'
+            }
+            post{
+                success{
+                    echo 'Generated Analysis Result'
+                }
+            }
+        }
+
         stage('Build'){
             steps{
 
