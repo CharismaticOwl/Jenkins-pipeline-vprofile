@@ -49,7 +49,7 @@ pipeline{
                 scannerHome = tool 'sonar'
             }
             steps{
-                withSonarQubeEnv('My SonarQube Server') { // If you have configured more than one global server connection, you can specify its name
+                withSonarQubeEnv('SonarCloud') { 
                     sh "${scannerHome}/bin/sonar-scanner"
             }
             }
