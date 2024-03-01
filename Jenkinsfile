@@ -84,25 +84,33 @@ pipeline{
 
         stage('Docker app Build'){
             steps{
-                def appImage = docker.build("${appRegistry}:${BUILD_NUMBER}","./docker/app/Dockerfile")
+                script{
+                    def appImage = docker.build("${appRegistry}:${BUILD_NUMBER}","./docker/app/Dockerfile")
+                }
             }
         }
 
         stage('Push app Image'){
             steps{
-                appImage.push()
+                script{
+                    appImage.push()
+                }
             }
         }
 
         stage('Docker sql Image'){
             steps{
-                def sqlImage = docker.build("${sqlRegistry}:${BUILD_NUMBER}","./docker/sql/Dockerfile")
+                script{
+                    def sqlImage = docker.build("${sqlRegistry}:${BUILD_NUMBER}","./docker/sql/Dockerfile")
+                }
             }
         }
 
         stage('Push sql Image'){
             steps{
-                sqlImage.push()
+                script{
+                    sqlImage.push()
+                }
             }
         }
 
