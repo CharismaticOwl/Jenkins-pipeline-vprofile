@@ -6,7 +6,7 @@ pipeline{
         appRegistry = '367065853931.dkr.ecr.ap-south-1.amazonaws.com/vprofile-app'
         sqlRegistry = '367065853931.dkr.ecr.ap-south-1.amazonaws.com/vprofile-sql'
         registryCred = 'ecr:ap-south-1:aws'
-        vprofileRegistry='http://367065853931.dkr.ecr.ap-south-1.amazonaws.com'
+        vprofileRegistry='https://367065853931.dkr.ecr.ap-south-1.amazonaws.com'
     }
 
     stages{
@@ -96,7 +96,7 @@ pipeline{
             steps{
                 script{
                     docker.withRegistry(vprofileRegistry,registryCred){
-                        appImage.push()
+                        appImage.push("${BUILD_NUMBER}")
                     }
                 }
             }
@@ -114,7 +114,7 @@ pipeline{
             steps{
                 script{
                     docker.withRegistry(vprofileRegistry,registryCred){
-                        sqlImage.push()
+                        sqlImage.push("${BUILD_NUMBER}")
                     }
                 }
             }
