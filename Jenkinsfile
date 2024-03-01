@@ -87,7 +87,7 @@ pipeline{
         stage('Docker app Build'){
             steps{
                 script{
-                    def appImage = docker.build("${appRegistry}:${BUILD_NUMBER}")
+                    appImage = docker.build("${appRegistry}:${BUILD_NUMBER}")
                 }
             }
         }
@@ -105,7 +105,7 @@ pipeline{
         stage('Docker sql Image'){
             steps{
                 script{
-                    def sqlImage = docker.build("${sqlRegistry}:${BUILD_NUMBER}","./docker/sql/")
+                    sqlImage = docker.build("${sqlRegistry}:${BUILD_NUMBER}","./docker/sql/")
                 }
             }
         }
