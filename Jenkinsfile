@@ -105,23 +105,6 @@ pipeline{
             }
         }
 
-        stage('Docker sql Image'){
-            steps{
-                script{
-                    sqlImage = docker.build("${sqlRegistry}:${BUILD_NUMBER}","./docker/db/")
-                }
-            }
-        }
-
-        stage('Push sql Image'){
-            steps{
-                script{
-                    docker.withRegistry(vprofileRegistry,registryCred){
-                        sqlImage.push()
-                    }
-                }
-            }
-        }
 
         stage('Deploy to ECS stage'){
             steps{
