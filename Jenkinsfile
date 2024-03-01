@@ -3,6 +3,8 @@ pipeline{
 
     environment{
         CODEARTIFACT_AUTH_TOKEN = ''
+        appRegistry = '367065853931.dkr.ecr.ap-south-1.amazonaws.com/vprofile-app'
+        sqlRegistry = '367065853931.dkr.ecr.ap-south-1.amazonaws.com/vprofile-sql'
     }
 
     stages{
@@ -79,5 +81,30 @@ pipeline{
                 }
             }
         }
+
+        stage('Docker app Build'){
+            steps{
+                appImage = docker.build("${env.appRegistry}:${env.BUILD_NUMBER}","./docker/app/Dockerfile")
+            }
+        }
+
+        stage('Push app Image'){
+            steps{
+                appImage.push()
+            }
+        }
+
+        stage('Docker sql Image'){
+            steps{
+                sqlImage = docker.build("${env.sqlRegistry}:${env.BUILD_NUMBER}","./docker/sql/Dockerfile")
+            }
+        }
+
+        stage('Push sql Image'){
+            steps{
+                sqlImage.push()
+            }
+        }
+
     }
 }
