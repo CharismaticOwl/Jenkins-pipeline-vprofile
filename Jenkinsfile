@@ -7,6 +7,9 @@ pipeline{
         sqlRegistry = '367065853931.dkr.ecr.ap-south-1.amazonaws.com/vprofile-sql'
         registryCred = 'ecr:ap-south-1:aws'
         vprofileRegistry='https://367065853931.dkr.ecr.ap-south-1.amazonaws.com'
+        clusterName = 'vprofile'
+        appTaskName = 'vprofile-app-task'
+        appServiceName = 'vprofile-app-service'
     }
 
     stages{
@@ -116,6 +119,14 @@ pipeline{
                     docker.withRegistry(vprofileRegistry,registryCred){
                         sqlImage.push()
                     }
+                }
+            }
+        }
+
+        stage('Deploy to ECS stage'){
+            steps{
+                withAWS(credentials: 'aws',region: 'ap-south-1'){
+                    sh 'aws ecs update-service --cluster ${clusterName} --service ${appServiceName} --force-new-deployment'
                 }
             }
         }
