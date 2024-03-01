@@ -5,6 +5,8 @@ pipeline{
         CODEARTIFACT_AUTH_TOKEN = ''
         appRegistry = '367065853931.dkr.ecr.ap-south-1.amazonaws.com/vprofile-app'
         sqlRegistry = '367065853931.dkr.ecr.ap-south-1.amazonaws.com/vprofile-sql'
+        registryCred = 'ecr:ap-south-1:aws'
+        vprofileRegistry='http://367065853931.dkr.ecr.ap-south-1.amazonaws.com'
     }
 
     stages{
@@ -93,7 +95,9 @@ pipeline{
         stage('Push app Image'){
             steps{
                 script{
-                    appImage.push()
+                    docker.withRegistry(vprofileRegistry,registryCred){
+                        appImage.push()
+                    }
                 }
             }
         }
@@ -109,7 +113,9 @@ pipeline{
         stage('Push sql Image'){
             steps{
                 script{
-                    sqlImage.push()
+                    docker.withRegistry(vprofileRegistry,registryCred){
+                        sqlImage.push()
+                    }
                 }
             }
         }
