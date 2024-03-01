@@ -96,7 +96,7 @@ pipeline{
             steps{
                 script{
                     docker.withRegistry(vprofileRegistry,registryCred){
-                        appImage.push("${BUILD_NUMBER}")
+                        appImage.push()
                     }
                 }
             }
@@ -114,7 +114,7 @@ pipeline{
             steps{
                 script{
                     docker.withRegistry(vprofileRegistry,registryCred){
-                        sqlImage.push("${BUILD_NUMBER}")
+                        sqlImage.push()
                     }
                 }
             }
