@@ -100,6 +100,7 @@ pipeline{
                 script{
                     docker.withRegistry(vprofileRegistry,registryCred){
                         appImage.push()
+                        appImage.push('latest')
                     }
                 }
             }
