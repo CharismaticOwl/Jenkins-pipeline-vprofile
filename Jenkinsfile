@@ -105,7 +105,7 @@ pipeline{
         stage('Docker sql Image'){
             steps{
                 script{
-                    sqlImage = docker.build("${sqlRegistry}:${BUILD_NUMBER}","./docker/sql/")
+                    sqlImage = docker.build("${sqlRegistry}:${BUILD_NUMBER}","./docker/db/")
                 }
             }
         }
